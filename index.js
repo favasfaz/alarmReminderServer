@@ -19,11 +19,6 @@ app.use(bodyParser.json());
 app.use("/api/users", userRouter);
 
 
-app.use(express.static(path.join(__dirname, "/client")));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
-});
 
 //error management
 app.use((err, req, res, next) => {
