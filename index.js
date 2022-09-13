@@ -18,7 +18,9 @@ app.use(bodyParser.json());
 //routes
 app.use("/api/users", userRouter);
 
-
+app.use('/',(req,res)=>{
+  res.send('s')
+})
 
 //error management
 app.use((err, req, res, next) => {
