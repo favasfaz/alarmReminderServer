@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { createError } from "../util/error.js";
 
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
   const token = req.header("authtoken");
 
   if (!token) {
@@ -17,4 +17,3 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-export default verifyToken;
