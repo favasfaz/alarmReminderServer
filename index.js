@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import cookieParcer from "cookie-parser";
+import cors from "cors"
 import db from "./util/config.js";
 import bodyParser from "body-parser";
 import userRouter from "./Routes/userRouter.js";
@@ -10,6 +11,7 @@ dotenv.config();
 const PORT = process.env.PORT || 6000;
 const app = express();
 app.use(helmet());
+app.use(cors())
 db();
 app.use(cookieParcer());
 app.use(bodyParser.urlencoded({ extended: false }));
