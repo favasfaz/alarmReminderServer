@@ -25,8 +25,7 @@ export const userLogin = async (req, res, next) => {
 export const userDeteils = async (req, res, next) => {
   const { name, phone, project, email } = req.body;
   try {
-    const ifExist = await userSchema.findOne({ phone,project });
-    console.log(ifExist,'exist');
+    const ifExist = await userSchema.findOne({$and:[{phone},{project}]});
     if (ifExist)
       return next(
         createError(400, { phone: ifExist.phone, name: ifExist.name })
