@@ -1,13 +1,20 @@
 import jwt from "jsonwebtoken";
 import { createError } from "../util/error.js";
 
-export const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token;
+const verifyToken = (req, res, next) => {
+  const token = req.header("authtoken");
+
   if (!token) {
-    return next(createError(401, "You are not authenticated"));
+    return res.status(401).json({ status: false, msg: "Access Denied" });
   }
-  jwt.verify(token, process.env.JWT_SECRETE, (err, user) => {
-    if (err) return next(createError(403, "Token is not valid"));
+
+  try {
+    const verify = jwt.verify(token, process.env.SIGNIN_TOKEN_KEY_JWT);
+    req.user = verify;
     next();
-  });
+  } catch (error) {
+    res.status(400).json({ status: false, msg: "Invalid Token" });
+  }
 };
+
+export default verifyToken;
